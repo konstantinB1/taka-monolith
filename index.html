@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monolit — Izdavačka kuća</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Lovato';
+            src: url('./fonts/Lovato-Light-webfont.ttf') format('truetype');
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --dark: #393838;
+            --red: #C62828;
+            --gray: #606060;
+            --mid-gray: #9e9e9e;
+            --light: #f7f6f4;
+            --white: #ffffff;
+            --border: #e0dedd;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto Slab', Georgia, serif;
+            background-color: var(--white);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* ── HEADER ── */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            height: 72px;
+        }
+
+        .logo {
+            font-family: 'Lovato', serif;
+            font-weight: 300;
+            font-size: 32px;
+            letter-spacing: 0.08em;
+            color: var(--gray);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--red);
+        }
+
+        .site-nav {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .site-nav a {
+            font-family: 'Courier Prime', 'Courier New', monospace;
+            font-size: 15px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--dark);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .site-nav a:hover {
+            color: var(--red);
+        }
+
+        .burger-btn {
+            display: none;
+            width: 42px;
+            height: 42px;
+            border: none;
+            background: transparent;
+            color: var(--dark);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .burger-line {
+            width: 20px;
+            height: 2px;
+            background: currentColor;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .burger-btn[aria-expanded="true"] .burger-line:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .burger-btn[aria-expanded="true"] .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-btn[aria-expanded="true"] .burger-line:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* ── FEATURED SLIDER ── */
+        .featured-slider {
+            padding: 56px 60px 64px;
+            max-width: 1400px;
+            margin: 0 auto;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .slider-shell {
+            position: relative;
+            overflow: hidden;
+            min-height: 420px;
+            background: linear-gradient(145deg, #f9f8f6 0%, #f0efec 100%);
+            border: 1px solid var(--border);
+        }
+
+        .slider-track {
+            display: flex;
+            width: 100%;
+            transition: transform 0.45s ease;
+        }
+
+        .slider-slide {
+            min-width: 100%;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 32px;
+            padding: 52px;
+            align-items: end;
+        }
+
+        .slider-copy {
+            align-self: center;
+        }
+
+        .slider-kicker {
+            font-family: 'Courier Prime', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.22em;
+            color: var(--red);
+            margin-bottom: 16px;
+        }
+
+        .slider-title {
+            font-size: clamp(36px, 5.2vw, 72px);
+            line-height: 0.95;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .slider-title span {
+            color: var(--red);
+        }
+
+        .slider-text {
+            font-family: 'Courier Prime', monospace;
+            font-size: 15px;
+            line-height: 1.85;
+            color: var(--gray);
+            max-width: 520px;
+            margin-bottom: 20px;
+        }
+
+        .slider-book-link {
+            display: inline-block;
+            font-family: 'Courier Prime', monospace;
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--red);
+            text-decoration: none;
+            border-bottom: 1px solid var(--red);
+            padding-bottom: 2px;
+        }
+
+        .slider-book-link:hover {
+            opacity: 0.7;
+        }
+
+        .slider-visual {
+            position: relative;
+            height: 100%;
+            min-height: 260px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+        }
+
+        .slider-cover {
+            width: min(100%, 280px);
+            aspect-ratio: 2 / 3;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 18px;
+            overflow: hidden;
+        }
+
+        .slider-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--red);
+        }
+
+        .slider-cover-1 { background: #1a1a2e; }
+        .slider-cover-2 { background: #2d2013; }
+        .slider-cover-3 { background: #12283a; }
+        .slider-cover-4 { background: #2a1535; }
+
+        .slider-cover-title {
+            font-size: 22px;
+            line-height: 1.2;
+            color: rgba(255,255,255,0.92);
+            margin-bottom: 6px;
+            z-index: 1;
+        }
+
+        .slider-cover-author {
+            font-family: 'Courier Prime', monospace;
+            font-size: 12px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.52);
+            z-index: 1;
+        }
+
+        .slider-controls {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .slider-arrow {
+            width: 34px;
+            height: 34px;
+            border: 0;
+            border-radius: 50%;
+            color: var(--dark);
+            cursor: pointer;
+            line-height: 0;
+            transition: all 0.16s ease;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: auto;
+            /* box-shadow: 0 1px 0 #000, 0 6px 16px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9); */
+        }
+
+        .slider-arrow-icon {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            opacity: 0.9;
+            transform: scale(1.12);
+            transform-origin: center;
+        }
+
+        .slider-arrow[data-dir="prev"] {
+            left: 6px;
+        }
+
+        .slider-arrow[data-dir="next"] {
+            right: 6px;
+        }
+
+        .slider-arrow:hover {
+            box-shadow: 0 2px 0 #b0b0b0, 0 8px 18px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+        }
+
+        .slider-arrow:hover .slider-arrow-icon {
+            opacity: 1;
+        }
+
+        .slider-arrow:active {
+            box-shadow: 0 1px 0 #b0b0b0, 0 3px 8px rgba(0, 0, 0, 0.12), inset 0 1px 1px rgba(0, 0, 0, 0.08);
+        }
+
+        .slider-counter {
+            position: absolute;
+            left: 24px;
+            bottom: 18px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            color: var(--mid-gray);
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        /* ── SECTION TITLES ── */
+        .section-header {
+            padding: 80px 60px 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: baseline;
+            gap: 24px;
+        }
+
+        .section-header h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1;
+        }
+
+        .section-header .section-sub {
+            font-family: 'Courier Prime', monospace;
+            font-size: 13px;
+            letter-spacing: 0.2em;
+            color: var(--mid-gray);
+            text-transform: uppercase;
+        }
+
+        /* ── BOOKS GRID ── */
+        .books-grid {
+            padding: 0 60px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px 40px;
+        }
+
+        .book-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-cover {
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .book-cover-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
+            position: relative;
+            transition: transform 0.4s ease;
+        }
+
+        .book-card:hover .book-cover-inner {
+            transform: scale(1.02);
+        }
+
+        /* Individual cover color schemes */
+        .cover-1 { background: #1a1a2e; }
+        .cover-2 { background: #2d2013; }
+        .cover-3 { background: #0d2137; }
+        .cover-4 { background: #1e1e1e; }
+        .cover-5 { background: #1c1c3a; }
+        .cover-6 { background: #2a1a1a; }
+        .cover-7 { background: #0e2a1e; }
+        .cover-8 { background: #252025; }
+
+        .cover-title-on-book {
+            font-family: 'Roboto Slab', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.92);
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .cover-author-on-book {
+            font-family: 'Courier Prime', monospace;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+        }
+
+        /* Decorative cover stripe */
+        .book-cover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--red);
+        }
+
+        /* Decorative pattern on cover */
+        .cover-pattern {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 50%;
+        }
+
+        .cover-pattern::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50%;
+        }
+
+        .book-author {
+            font-family: 'Courier Prime', monospace;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--mid-gray);
+            margin-bottom: 6px;
+        }
+
+        .book-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+            line-height: 1.25;
+        }
+
+        .book-desc {
+            font-family: 'Courier Prime', monospace;
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+
+        .book-link {
+            display: inline-block;
+            font-family: 'Courier Prime', monospace;
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--red);
+            text-decoration: none;
+            border-bottom: 1px solid var(--red);
+            padding-bottom: 2px;
+            align-self: flex-start;
+            transition: opacity 0.2s;
+        }
+
+        .book-link:hover {
+            opacity: 0.65;
+        }
+
+        /* ── DIVIDER ── */
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ── COMING SOON ── */
+        .upcoming {
+            background: var(--light);
+            padding-bottom: 80px;
+        }
+
+        .upcoming .section-header {
+            padding-top: 80px;
+        }
+
+        .upcoming-grid {
+            padding: 0 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .upcoming-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            padding: 32px;
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+        }
+
+        .upcoming-cover {
+            width: 80px;
+            flex-shrink: 0;
+            aspect-ratio: 2/3;
+            background: var(--dark);
+            position: relative;
+        }
+
+        .upcoming-cover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--red);
+        }
+
+        .upcoming-cover-3 { background: #2a1535; }
+        .upcoming-cover-4 { background: #12283a; }
+
+        .upcoming-info {
+            flex: 1;
+        }
+
+        .upcoming-label {
+            font-family: 'Courier Prime', monospace;
+            font-size: 10px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 10px;
+        }
+
+        .upcoming-title {
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .upcoming-author {
+            font-family: 'Courier Prime', monospace;
+            font-size: 12px;
+            color: var(--mid-gray);
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .upcoming-desc {
+            font-family: 'Courier Prime', monospace;
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* ── ABOUT ── */
+        .about {
+            padding: 100px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 32px;
+        }
+
+        .about-text p {
+            font-family: 'Courier Prime', monospace;
+            font-size: 15px;
+            color: var(--gray);
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .about-visual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .about-block {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+
+        .about-block:nth-child(1) { background: var(--dark); }
+        .about-block:nth-child(2) { background: var(--light); border: 1px solid var(--border); }
+        .about-block:nth-child(3) { background: var(--light); border: 1px solid var(--border); }
+        .about-block:nth-child(4) { background: var(--red); }
+
+        .about-block-number {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .about-block:nth-child(1) .about-block-number,
+        .about-block:nth-child(4) .about-block-number {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .about-block:nth-child(2) .about-block-number,
+        .about-block:nth-child(3) .about-block-number {
+            color: var(--dark);
+        }
+
+        .about-block-label {
+            font-family: 'Courier Prime', monospace;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .about-block:nth-child(1) .about-block-label,
+        .about-block:nth-child(4) .about-block-label {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .about-block:nth-child(2) .about-block-label,
+        .about-block:nth-child(3) .about-block-label {
+            color: var(--mid-gray);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--border);
+            background: var(--dark);
+            color: rgba(255,255,255,0.6);
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 60px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand .logo {
+            color: rgba(255,255,255,0.5);
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            font-family: 'Courier Prime', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .footer-col h4 {
+            font-family: 'Courier Prime', monospace;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            font-family: 'Courier Prime', monospace;
+            font-size: 14px;
+            color: rgba(255,255,255,0.55);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .footer-col address {
+            font-style: normal;
+            font-family: 'Courier Prime', monospace;
+            font-size: 14px;
+            line-height: 1.9;
+            color: rgba(255,255,255,0.55);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 60px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-family: 'Courier Prime', monospace;
+            font-size: 12px;
+            color: rgba(255,255,255,0.25);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            header { padding: 0 32px; }
+
+            .featured-slider { padding: 40px 32px 52px; }
+            .slider-slide { grid-template-columns: 1fr; padding: 42px 34px 64px; }
+            .slider-visual { justify-content: flex-start; }
+
+            .section-header,
+            .books-grid,
+            .upcoming-grid,
+            .about { padding-left: 32px; padding-right: 32px; }
+
+            .books-grid { grid-template-columns: repeat(2, 1fr); }
+
+            .footer-inner { padding: 48px 32px 32px; }
+            .footer-bottom { padding: 20px 32px; }
+        }
+
+        @media (max-width: 720px) {
+            header {
+                padding: 0 20px;
+                height: 72px;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 10px;
+                position: sticky;
+                overflow: visible;
+            }
+
+            .burger-btn {
+                display: inline-flex;
+                order: 1;
+            }
+
+            .logo {
+                order: 2;
+                margin-left: 0;
+            }
+
+            .site-nav {
+                display: none;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                border-top: 1px solid var(--border);
+                background: var(--white);
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+                z-index: 130;
+            }
+
+            .site-nav.is-open {
+                display: flex;
+            }
+
+            .site-nav a {
+                padding: 14px 20px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .featured-slider { padding: 28px 20px 36px; }
+            .slider-shell { min-height: auto; }
+            .slider-slide { padding: 30px 18px 58px; gap: 20px; }
+            .slider-title { font-size: clamp(30px, 11vw, 44px); }
+            .slider-text { font-size: 14px; }
+            .slider-cover { width: min(100%, 220px); }
+            .slider-arrow { width: 40px; height: 40px; }
+            .slider-arrow[data-dir="prev"] { left: 8px; }
+            .slider-arrow[data-dir="next"] { right: 8px; }
+            .slider-counter { left: 16px; bottom: 12px; }
+
+            .section-header { padding: 48px 20px 32px; flex-direction: column; gap: 8px; }
+            .section-header h2 { font-size: 36px; }
+
+            .books-grid {
+                grid-template-columns: 1fr;
+                padding: 0 20px 48px;
+                gap: 40px;
+            }
+
+            .upcoming-grid {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                padding: 60px 20px;
+                gap: 40px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                padding: 40px 20px 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 8px;
+                padding: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a class="logo" href="#vrh">Mono<span>lit</span></a>
+        <button class="burger-btn" type="button" data-burger-btn aria-expanded="false" aria-controls="main-nav" aria-label="Otvori meni">
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+        </button>
+        <nav class="site-nav" id="main-nav">
+            <a href="#knjige">Knjige</a>
+            <a href="#uskoro">Uskoro</a>
+            <a href="#o-nama">O nama</a>
+            <a href="#kontakt">Kontakt</a>
+        </nav>
+    </header>
+
+    <!-- FEATURED SLIDER -->
+    <section id="vrh">
+        <div class="featured-slider" aria-label="Istaknute knjige">
+            <div class="slider-shell">
+                <div class="slider-controls">
+                    <button class="slider-arrow" type="button" data-dir="prev" aria-label="Prethodni slajd">
+                        <img class="slider-arrow-icon" src="assets/left-arrow-svgrepo-com.svg" alt="" aria-hidden="true">
+                    </button>
+                    <button class="slider-arrow" type="button" data-dir="next" aria-label="Sledeći slajd">
+                        <img class="slider-arrow-icon" src="assets/right-arrow-svgrepo-com.svg" alt="" aria-hidden="true">
+                    </button>
+                </div>
+
+                <div class="slider-track">
+                    <article class="slider-slide">
+                        <div class="slider-copy">
+                            <div class="slider-kicker">Izdvajamo</div>
+                            <h1 class="slider-title">Priče koje<br><span>ostaju</span></h1>
+                            <p class="slider-text">Od savremenog romana do poezije, objavljujemo knjige koje se čitaju polako i dugo pamte. Svaki naslov biramo urednički i srcem.</p>
+                            <a class="slider-book-link" href="#">Pogledaj knjigu</a>
+                        </div>
+                        <div class="slider-visual">
+                            <div class="slider-cover slider-cover-1">
+                                <div class="slider-cover-title">Tamno staklo</div>
+                                <div class="slider-cover-author">Ana Milić</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="slider-slide">
+                        <div class="slider-copy">
+                            <div class="slider-kicker">Novi naslov</div>
+                            <h1 class="slider-title">Grad, tišina<br><span>i glas</span></h1>
+                            <p class="slider-text">Knjige koje otvaraju prostor za razgovor: o odrastanju, usamljenosti i nežnosti. Minimalan dizajn, snažne priče, autentični autori.</p>
+                            <a class="slider-book-link" href="#">Pogledaj knjigu</a>
+                        </div>
+                        <div class="slider-visual">
+                            <div class="slider-cover slider-cover-2">
+                                <div class="slider-cover-title">Pred zidom</div>
+                                <div class="slider-cover-author">Marko Vesić</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="slider-slide">
+                        <div class="slider-copy">
+                            <div class="slider-kicker">Preporuka urednika</div>
+                            <h1 class="slider-title">Knjige za<br><span>dugo čitanje</span></h1>
+                            <p class="slider-text">Biramo naslove koji žive i posle poslednje stranice. Literatura koja menja ritam dana i ostavlja trag, bez buke i viška.</p>
+                            <a class="slider-book-link" href="#">Pogledaj knjigu</a>
+                        </div>
+                        <div class="slider-visual">
+                            <div class="slider-cover slider-cover-3">
+                                <div class="slider-cover-title">Reka ide dalje</div>
+                                <div class="slider-cover-author">Jelena Kovač</div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="slider-counter" aria-live="polite">
+                    <span data-slider-current>01</span> / <span data-slider-total>00</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- BOOKS -->
+    <section id="knjige">
+        <div class="section-header">
+            <h2>Ebooks</h2>
+            <span class="section-sub">Naš katalog</span>
+        </div>
+
+        <div class="books-grid">
+
+            <div class="book-card">
+                <div class="book-cover">
+                    <div class="book-cover-inner cover-1">
+                        <div class="cover-pattern"></div>
+                        <div class="cover-title-on-book">Tamno staklo</div>
+                        <div class="cover-author-on-book">Ana Milić</div>
+                    </div>
+                </div>
+                <div class="book-author">Ana Milić</div>
+                <div class="book-title">Tamno staklo</div>
+                <p class="book-desc">Roman o sećanju, tišini i onom što ostaje kada sve prođe. Priča jedne žene kroz tri decenije.</p>
+                <a class="book-link" href="#">Saznaj više →</a>
+            </div>
+
+            <div class="book-card">
+                <div class="book-cover">
+                    <div class="book-cover-inner cover-2">
+                        <div class="cover-pattern"></div>
+                        <div class="cover-title-on-book">Pred zidom</div>
+                        <div class="cover-author-on-book">Marko Vesić</div>
+                    </div>
+                </div>
+                <div class="book-author">Marko Vesić</div>
+                <div class="book-title">Pred zidom</div>
+                <p class="book-desc">Zbirka priča iz gradskog života — fragmenti koji zajedno grade jednu veliku sliku usamljenosti i nade.</p>
+                <a class="book-link" href="#">Saznaj više →</a>
+            </div>
+
+            <div class="book-card">
+                <div class="book-cover">
+                    <div class="book-cover-inner cover-3">
+                        <div class="cover-pattern"></div>
+                        <div class="cover-title-on-book">Reka ide dalje</div>
+                        <div class="cover-author-on-book">Jelena Kovač</div>
+                    </div>
+                </div>
+                <div class="book-author">Jelena Kovač</div>
+                <div class="book-title">Reka ide dalje</div>
+                <p class="book-desc">Poetski roman koji prati tok jedne reke i živote koji se uz nju prepliću — od izvora do ušća.</p>
+                <a class="book-link" href="#">Saznaj više →</a>
+            </div>
+
+            <div class="book-card">
+                <div class="book-cover">
+                    <div class="book-cover-inner cover-4">
+                        <div class="cover-pattern"></div>
+                        <div class="cover-title-on-book">Bele noći, crni dani</div>
+                        <div class="cover-author-on-book">Nikola Stanić</div>
+                    </div>
+                </div>
+                <div class="book-author">Nikola Stanić</div>
+                <div class="book-title">Bele noći, crni dani</div>
+                <p class="book-desc">Memoarska proza o odrastanju u devedesetima — iskrena, bolna i neobično smešna.</p>
+                <a class="book-link" href="#">Saznaj više →</a>
+            </div>
+
+            <div class="book-card">
+                <div class="book-cover">
+                    <div class="book-cover-inner cover-5">
+                        <div class="cover-pattern"></div>
+                        <div class="cover-title-on-book">Šuma iza kuće</div>
+                        <div class="cover-author-on-book">Sonja Petrović</div>
+                    </div>
+                </div>
+                <div class="book-author">Sonja Petrović</div>
+                <div class="book-title">Šuma iza kuće</div>
+                <p class="book-desc">Prva zbirka pesama mlade pesnikinje. Priroda kao ogledalo unutrašnjeg sveta — jezgrovito i precizno.</p>
+                <a class="book-link" href="#">Saznaj više →</a>
+            </div>
+
+            <div class="book-card">
+                <div class="book-cover">
+                    <div class="book-cover-inner cover-6">
+                        <div class="cover-pattern"></div>
+                        <div class="cover-title-on-book">Između dva leta</div>
+                        <div class="cover-author-on-book">Dragan Ilić</div>
+                    </div>
+                </div>
+                <div class="book-author">Dragan Ilić</div>
+                <div class="book-title">Između dva leta</div>
+                <p class="book-desc">Kratki roman o ljubavi, rastanku i svakom susretu koji nam promeni pravac — tih i neporeciv.</p>
+                <a class="book-link" href="#">Saznaj više →</a>
+            </div>
+
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- COMING SOON -->
+    <section id="uskoro" class="upcoming">
+        <div class="section-header">
+            <h2>Uskoro</h2>
+            <span class="section-sub">Nadolazeća izdanja</span>
+        </div>
+
+        <div class="upcoming-grid">
+
+            <div class="upcoming-card">
+                <div class="upcoming-cover upcoming-cover-3"></div>
+                <div class="upcoming-info">
+                    <div class="upcoming-label">Jesen 2026</div>
+                    <div class="upcoming-title">Poslednji voz iz Niša</div>
+                    <div class="upcoming-author">Milan Đorđević</div>
+                    <p class="upcoming-desc">Putopisni roman koji prati jednog čoveka na putu prema jugu — i unazad u sopstvenu prošlost.</p>
+                </div>
+            </div>
+
+            <div class="upcoming-card">
+                <div class="upcoming-cover upcoming-cover-4"></div>
+                <div class="upcoming-info">
+                    <div class="upcoming-label">Zima 2026</div>
+                    <div class="upcoming-title">Sve što nismo rekli</div>
+                    <div class="upcoming-author">Ivana Lukić</div>
+                    <p class="upcoming-desc">Epistolarni roman sastavljen od pisama koja nikada nisu poslata. Intimno i neočekivano hrabro.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ABOUT -->
+    <section id="o-nama">
+        <div class="about">
+            <div class="about-text">
+                <h2>O nama</h2>
+                <p>Monolit je mala nezavisna izdavačka kuća osnovana iz ljubavi prema dobrim knjigama. Verujemo da svaka priča zaslužuje pravi prostor — na stranici, u rukama čitaoca.</p>
+                <p>Radimo s pažnjom: biramo rukopise koji nas uzbuđuju, dizajniramo korice s poštovanjem prema tekstu i brinemo se o svakom detalju do finalne štampe.</p>
+                <p>Naš katalog je mali i nameran.</p>
+            </div>
+            <div class="about-visual">
+                <div class="about-block">
+                    <div class="about-block-number">12</div>
+                    <div class="about-block-label">Objavljenih knjiga</div>
+                </div>
+                <div class="about-block">
+                    <div class="about-block-number">8</div>
+                    <div class="about-block-label">Autora u katalogu</div>
+                </div>
+                <div class="about-block">
+                    <div class="about-block-number">4</div>
+                    <div class="about-block-label">Godine rada</div>
+                </div>
+                <div class="about-block">
+                    <div class="about-block-number">01</div>
+                    <div class="about-block-label">Jedinstven pristup</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / CONTACT -->
+    <footer id="kontakt">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a class="logo" href="#vrh">Mono<span>lit</span></a>
+                <p>Nezavisna književna<br>izdavačka kuća.<br>Osnована у Beogradu.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigacija</h4>
+                <ul>
+                    <li><a href="#knjige">Knjige</a></li>
+                    <li><a href="#uskoro">Uskoro</a></li>
+                    <li><a href="#o-nama">O nama</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Kontakt</h4>
+                <address>
+                    knjige@monolit.rs<br><br>
+                    Beograd, Srbija
+                </address>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Monolit — Sva prava zadržana</p>
+            <p>Izrađeno s ljubavlju prema knjigama</p>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const burgerBtn = document.querySelector('[data-burger-btn]');
+            const siteNav = document.querySelector('.site-nav');
+
+            if (!burgerBtn || !siteNav) return;
+
+            const navLinks = Array.from(siteNav.querySelectorAll('a'));
+
+            function setOpenState(isOpen) {
+                burgerBtn.setAttribute('aria-expanded', String(isOpen));
+                siteNav.classList.toggle('is-open', isOpen);
+            }
+
+            burgerBtn.addEventListener('click', function () {
+                const isOpen = burgerBtn.getAttribute('aria-expanded') === 'true';
+                setOpenState(!isOpen);
+            });
+
+            navLinks.forEach(function (link) {
+                link.addEventListener('click', function () {
+                    setOpenState(false);
+                });
+            });
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 720) {
+                    setOpenState(false);
+                }
+            });
+        })();
+
+        (function () {
+            const slider = document.querySelector('.featured-slider');
+            if (!slider) return;
+
+            const track = slider.querySelector('.slider-track');
+            const slides = Array.from(slider.querySelectorAll('.slider-slide'));
+            const buttons = slider.querySelectorAll('.slider-arrow');
+            const currentEl = slider.querySelector('[data-slider-current]');
+            const totalEl = slider.querySelector('[data-slider-total]');
+
+            let index = 0;
+            const total = slides.length;
+
+            if (totalEl) {
+                totalEl.textContent = String(total).padStart(2, '0');
+            }
+
+            function render() {
+                track.style.transform = 'translateX(-' + (index * 100) + '%)';
+                if (currentEl) {
+                    currentEl.textContent = String(index + 1).padStart(2, '0');
+                }
+            }
+
+            function move(direction) {
+                if (direction === 'next') {
+                    index = (index + 1) % total;
+                } else {
+                    index = (index - 1 + total) % total;
+                }
+                render();
+            }
+
+            buttons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    move(button.getAttribute('data-dir'));
+                });
+            });
+
+            render();
+        })();
+    </script>
+</body>
+</html>
